@@ -6,10 +6,10 @@ main_prog=mainAlphaTwoHB001
 
 N=40
 N=`printf "%010d" ${N}`
-U0=0.80
+U0=$1
 T1=0.00
 T2=0.00
-alpha=0.50  #$1 #1.30
+alpha=0.00  #$1 #1.30
 id_from=1
 id_to=100
 
@@ -78,13 +78,13 @@ cat ${basedir}/qsubTemplate.sh >> ${qsubfile}
 ## Just print job
 echo qsub -t ${id_from}-${id_to} ${qsubfile}
 
-read -r -p "Do you want to run in the cluster? [y/N] " response
-if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
-then
-    qsub -t ${id_from}-${id_to} ${qsubfile}
-else
-    echo "Ok maybe the next time"
-fi
+#read -r -p "Do you want to run in the cluster? [y/N] " response
+#if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
+#then
+    qsub -N ${U0}_${alpha} -t ${id_from}-${id_to} ${qsubfile}
+#else
+#    echo "Ok maybe the next time"
+#fi
 
 ## Calculate temperature profile
 
