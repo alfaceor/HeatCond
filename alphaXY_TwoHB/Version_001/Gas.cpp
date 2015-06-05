@@ -25,6 +25,7 @@ Gas::Gas(int const N, double alpha){
   this->calculateInvIJalpha();
   this->Ntilde = N;
   this->calculateNtilde();
+  cout<<"Ntilde = "<< this->Ntilde<<endl; 
   
 };
 

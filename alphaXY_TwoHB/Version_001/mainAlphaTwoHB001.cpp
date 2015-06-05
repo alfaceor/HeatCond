@@ -167,6 +167,7 @@ int main(int argc, char **argv){
 	ofile3.open((io.outfilename3).c_str());
   ofile4.open((io.outfilename4).c_str());
   for(int i=0; i<io.N; i++){ 
+    // Temperature profile over time
     ofile4<<i<<" "<<2.0*MeanTimeEk_n[i]<<endl;
   }
   
