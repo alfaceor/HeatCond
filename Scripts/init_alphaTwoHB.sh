@@ -6,9 +6,9 @@ main_prog=mainAlphaTwoHB001
 
 N=40
 N=`printf "%010d" ${N}`
-U0=0.80
-T1=0.60
-T2=0.50
+U0=1.00
+T1=0.80
+T2=0.70
 alpha=0.50  #$1 #1.30
 id_from=1
 id_to=100

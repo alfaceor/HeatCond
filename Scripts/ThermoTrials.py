@@ -43,6 +43,14 @@ if options.outputFilename == None:
 else:
   outputFilename = options.outputFilename
 
+def CalcNtilde(Npart, alpha):
+  Ntilde=0.0
+  for i in range(1,Npart+1) :
+    Ntilde += i**(-alpha)
+  return Ntilde
+
+Ntilde = CalcNtilde(Npart, alpha)
+
 filename = args
 Mfiles = len(filename)
 # [ N, U0, alpha, T_mean, T_var, M_mean, M_var, J_mean, J_var] 9 vars
@@ -59,7 +67,7 @@ for i in range(Mfiles):
   Flux  = data[:,5]
   del data
   
-  T = 2*Ek[transient:]/Npart
+  T = 2*Ek[transient:]/Ntilde
   M = np.sqrt(Mx**2 + My**2)[transient:]
   
   T_mean = T.mean()
@@ -71,7 +79,7 @@ for i in range(Mfiles):
   J_mean = Flux.mean()
   J_var  = Flux.var()
   
-  thermo[i] = np.array([Npart, U0, alpha, T_mean, T_var, M_mean, M_var, J_mean, J_var])
+  thermo[i] = np.array([Npart, U0*Npart/Ntilde, alpha, T_mean, T_var, M_mean, M_var, J_mean, J_var])
 
 np.savetxt(outputFilename, thermo)
 thermoMean = thermo.mean(axis=0)
