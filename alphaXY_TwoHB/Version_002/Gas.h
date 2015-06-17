@@ -73,6 +73,7 @@ class Gas{
     void calculateEpotAlpha(double eps);
     void calculateEpotAlpha2(double eps);
     void calculateVec_flux(double eps, int i);
+    void calculateVec_flux2(double eps, int i);
     void calculateFlux();       // First calculateForce and updateVeloc
     
     // Update functions
