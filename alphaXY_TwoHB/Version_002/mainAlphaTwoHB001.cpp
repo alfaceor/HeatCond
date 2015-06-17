@@ -85,7 +85,7 @@ int main(int argc, char **argv){
 			// 3. Calculate ___force_new___
 			g_new.calculateVec_m();					//--  3.1 Calculate m_new
 			g_new.calculateVec_M();					//--  3.2 Calculate M_new
-			g_new.calculateForceAlpha(io.eps);		//--  3.3 Calculate force_new with M_new
+			g_new.calculateForceAlpha2(io.eps);		//--  3.3 Calculate force_new with M_new
 				
 			// 4. Calculate ___omega_new___
 			g_new.updateVeloc(&g_old, io.dt, &hb01, &hb02);
@@ -96,9 +96,9 @@ int main(int argc, char **argv){
 				// Calculate system energy.
         g_old.calculateEkin_n();
 				g_old.calculateEkin();
-				g_old.calculateEpotAlpha(io.eps);
+				g_old.calculateEpotAlpha2(io.eps);
 //				g_old.calculateEpot(io.eps);
-        g_old.calculateVec_flux(io.eps, io.partID_flux);
+        g_old.calculateVec_flux2(io.eps, io.partID_flux);
 //        g_old.calculateFlux();
 
         // Calculate kinetic energy mean
@@ -125,7 +125,7 @@ int main(int argc, char **argv){
 			// 3. Calculate ___force_new___
 			g_old.calculateVec_m();					//--  3.1 Calculate m_new
 			g_old.calculateVec_M();					//--  3.2 Calculate M_new
-			g_old.calculateForceAlpha(io.eps);		//--  3.3 Calculate force_new with M_new
+			g_old.calculateForceAlpha2(io.eps);		//--  3.3 Calculate force_new with M_new
 //			g_old.calculateForce(io.eps);		//--  3.3 Calculate force_new with M_new
 				
 			// 4. Calculate ___omega_new___
@@ -136,7 +136,7 @@ int main(int argc, char **argv){
 				// Calculate system energy.
         g_new.calculateEkin_n();
 				g_new.calculateEkin();
-				g_new.calculateEpotAlpha(io.eps);
+				g_new.calculateEpotAlpha2(io.eps);
 //				g_new.calculateEpot(io.eps);
         g_new.calculateVec_flux(io.eps, io.partID_flux);
 //        g_new.calculateFlux();

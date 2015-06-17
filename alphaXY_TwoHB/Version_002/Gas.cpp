@@ -349,9 +349,8 @@ void Gas::calculateEpotAlpha2(double eps){
       auxEp += (1.0 - costhetaij)*inv_ijalpha[abs(i-j)];
     }
     Ep += invNtildeI[i]*auxEp;
-    Ep = invNtildeI[i]*;
   }
-  Ep = eps*Ep/Ntilde;
+  Ep = eps*Ep;
 }
 
 void Gas::calculateVec_flux(double eps, int i){
@@ -365,6 +364,18 @@ void Gas::calculateVec_flux(double eps, int i){
 //      vec_flux[i] = 0.5*(omega[i]+omega[j])*f_ij;
   }
 
+}
+
+void Gas::calculateVec_flux2(double eps, int i){
+  vec_flux[i] = 0.0;
+  double sinthetaij = 0.0;
+  double f_ij =0.0;
+  for (int j=0; j<i; j++){
+      sinthetaij = vec_m[indx(i,1)]*vec_m[indx(j,0)] - vec_m[indx(i,0)]*vec_m[indx(j,1)];
+      f_ij = -0.5*eps*(invNtildeI[i]+ invNtildeI[j])*sinthetaij*inv_ijalpha[abs(i-j)];
+      vec_flux[i] += 0.5*f_ij*(omega[i] + omega[j]);
+//      vec_flux[i] = 0.5*(omega[i]+omega[j])*f_ij;
+  }
 }
 
 void Gas::calculateFlux(){
