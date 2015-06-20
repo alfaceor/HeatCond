@@ -84,7 +84,7 @@ void Gas::initCoord3(){
 void Gas::calculateNtilde(){  // depend of on the value of \alpha
 //  calculateInvIJalpha();
   Ntilde =0.0;
-  for (int i=0; i<N-1; i++){
+  for (int i=0; i<N-1; i++){ // FIXME: N or N-1
     Ntilde += inv_ijalpha[i];
   }
 }  
@@ -93,19 +93,25 @@ void Gas::calculateNtilde(){  // depend of on the value of \alpha
 // FIXME: Doesn't depend of part_id
 void Gas::calculateInvNtildeI(){  // depend of on the value of \alpha
 //  calculateInvIJalpha();
+  cout << "/////////////" << endl;
+  double auxNtildeI = 0.0;
   int delta_ij= 0;
   for (int i=0; i<N ; i++){
-    invNtildeI[i] = 0.0;
-    for (int j=0; j<N-1; j++){
+    auxNtildeI = 0.0;
+    for (int j=0; j<N; j++){
       if (i != j){
         delta_ij = abs(i-j);
         // This is not the inverse of NtildeI
-        invNtildeI[i] += inv_ijalpha[delta_ij]; 
+        auxNtildeI += inv_ijalpha[delta_ij]; 
+        cout<< "( "<< delta_ij << " )" << inv_ijalpha[delta_ij] << " + "; 
       }
     // Now we invert the value to get the inverse
-    invNtildeI[i] = 1.0/invNtildeI[i];
+    invNtildeI[i] = 1.0/auxNtildeI;
     }
+    cout << endl;
+    cout << "invNtildeI[i] = "<< invNtildeI[i] <<endl;
   }
+  cout << "/////////////" << endl;
   
 }  
 
@@ -114,7 +120,7 @@ void Gas::calculateInvIJalpha(){  // r_{i,j}^\alpha = |i-j|^\alpha
   this->inv_ijalpha[0] = 0.0;
   cout<<inv_ijalpha[0]<<endl;
   for (int delta_ij=1; delta_ij<N; delta_ij++){
-    this->inv_ijalpha[delta_ij] = 1.0/pow(fabs(delta_ij), alpha);
+    this->inv_ijalpha[delta_ij] = 1.0/pow(double(fabs(delta_ij)), alpha);
     cout<<inv_ijalpha[delta_ij]<<" ";
   }
   cout<<endl;
@@ -330,9 +336,12 @@ void Gas::calculateEpotFNB(double eps){
 
 void Gas::calculateEpotAlpha(double eps){
   Ep = 0.0;
+  double costhetaij =0.0;
   for (int i=0; i<N; i++){
     for (int j=0; j<i; j++){
-      Ep += (1.0 -(vec_m[indx(i,0)]*vec_m[indx(j,0)] + vec_m[indx(i,1)]*vec_m[indx(j,1)]))*inv_ijalpha[abs(i-j)];
+      costhetaij = vec_m[indx(i,0)]*vec_m[indx(j,0)] + vec_m[indx(i,1)]*vec_m[indx(j,1)] ;
+//      Ep += (1.0 -(vec_m[indx(i,0)]*vec_m[indx(j,0)] + vec_m[indx(i,1)]*vec_m[indx(j,1)]))*inv_ijalpha[abs(i-j)];
+      Ep += (1.0 - costhetaij)*inv_ijalpha[abs(i-j)];
     }
   }
   Ep = eps*Ep/Ntilde;
