@@ -21,7 +21,7 @@ basename="TEM"
 
 data_mean=np.loadtxt(inputFilename[0])
 
-outputFilename = basename+"__mean.dat"
+outputFilename = basename+"__mean.DAT"
 # open files to read line by line
 arquivo = [open(inputFilename[i]) for i in range(0,Mfiles) ]
 for i in range(Mfiles):

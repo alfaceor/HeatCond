@@ -1,15 +1,16 @@
 #!/bin/bash
-#set -e
+set -e
 basedir=/home/alfaceor/data-phd/alphaXY_TwoHB/Case001
-exec_path=/home/alfaceor/Projects/ceor-phd/alphaXY_TwoHB/Version_001
+exec_path=/home/alfaceor/Projects/HeatCond/alphaXY_TwoHB/Version_002
+#exec_path=/home/alfaceor/Projects/ceor-phd/alphaXY_TwoHB/Version_001
 main_prog=mainAlphaTwoHB001
 
 N=40
 N=`printf "%010d" ${N}`
-U0=1.00
-T1=0.80
-T2=0.70
-alpha=0.50  #$1 #1.30
+U0=$1
+T1=$2
+T2=$3
+alpha=2.00  #$1 #1.30
 id_from=1
 id_to=100
 
@@ -30,9 +31,10 @@ then
  echo "Warning the end files already exists!"
 else
  ## TODO: check if directory and end files exist
- cp ../T1_0.00__T2_0.00__A_${alpha}/*.end .
- rename "s/.end/.ini/" *.end
- rename "s/T1_0.00__T2_0.00/T1_${T1}__T2_${T2}/" *.ini
+ #cp ../T1_0.00__T2_0.00__A_${alpha}/*.end .
+ #rename "s/.end/.ini/" *.end
+ #rename "s/T1_0.00__T2_0.00/T1_${T1}__T2_${T2}/" *.ini
+ echo "Rerun from end to ini"
 fi
 
 
@@ -80,13 +82,13 @@ cat ${basedir}/qsubTemplate.sh >> ${qsubfile}
 ## Just print job
 echo qsub -t ${id_from}-${id_to} ${qsubfile}
 
-read -r -p "Do you want to run in the cluster? [y/N] " response
-if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
-then
-    qsub -t ${id_from}-${id_to} ${qsubfile}
-else
-    echo "Ok maybe the next time"
-fi
+# read -r -p "Do you want to run in the cluster? [y/N] " response
+# if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
+# then
+    qsub -N ${U0}_${alpha} -t ${id_from}-${id_to} ${qsubfile}
+# else
+#     echo "Ok maybe the next time"
+# fi
 
 ## Calculate temperature profile
 

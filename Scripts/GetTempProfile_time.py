@@ -4,7 +4,7 @@
 
 
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 from optparse import OptionParser
 parser = OptionParser("usage:  %prog [options] arg1 ")
@@ -46,12 +46,12 @@ TempMean = (vel[transient:]**2).mean(axis=0)
 TempKurt = (vel[transient:]**4).mean(axis=0)
 
 np.savetxt(outputFilename, zip(particles,TempVar,TempMean,TempKurt))
-plt.plot(particles, TempVar , 'o-')
-plt.plot(particles, TempMean, '+-')
+#plt.plot(particles, TempVar , 'o-')
+#plt.plot(particles, TempMean, '+-')
 
 #plt.ylim(0.6,1.0)
-plt.ylim(0.0,3.0)
-plt.savefig(inputFilename[0]+".png")
+#plt.ylim(0.0,3.0)
+#plt.savefig(inputFilename[0]+".png")
 
 """
 # velocity for each trial an a fixed time

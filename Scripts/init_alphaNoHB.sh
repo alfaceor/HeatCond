@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 basedir=/home/alfaceor/data-phd/alphaXY_TwoHB/Case001
-exec_path=/home/alfaceor/Projects/ceor-phd/alphaXY_TwoHB/Version_001
+exec_path=/home/alfaceor/Projects/HeatCond/alphaXY_TwoHB/Version_002
 main_prog=mainAlphaTwoHB001
 
 N=40
@@ -9,7 +9,7 @@ N=`printf "%010d" ${N}`
 U0=$1
 T1=0.00
 T2=0.00
-alpha=0.00  #$1 #1.30
+alpha=2.00  #$1 #1.30
 id_from=1
 id_to=100
 
@@ -44,9 +44,9 @@ alpha=${alpha}
 eps=1.0
 gamma1=1.0
 gamma2=1.0
-total_time=1000000
-timeDim=10000
-dt=0.001
+total_time=10000000
+timeDim=100000
+dt=0.1
 EndOfMessage
 
 ## Create file to submit (torque)
@@ -54,13 +54,11 @@ qsubfile=submit_job.q
 cat > ${qsubfile} <<- EndOfMessage
 #!/bin/sh
 #PBS -d ${basedir}/${SUBDIR01}/${SUBDIR02}
-### #PBS -d /home/alfaceor/data-phd/alphaXY_TwoHB/Case001/N_0000000040__U0_0.10/T1_0.15__T2_0.05__A_0.50
 #PBS -l walltime=24:00:00
 #PBS -m e
 #PBS -M alfaceor@gmail.com
 
 date
-#/home/alfaceor/Projects/ceor-phd/alphaXY_TwoHB/Version_001
 exec_path=${exec_path}
 #mainAlphaTwoHB001
 main_prog=${main_prog}
