@@ -47,11 +47,14 @@ int main(int argc, char **argv){
   g_old.calculateNtilde();
   g_new.calculateNtilde();
 
-	
-  ofstream ofile, ofile2;
+//	if(io.printTVR){}
+  
+  ofstream ofile;
   ofile.open((io.outfilename).c_str());
-  ofile2.open((io.outfilename2).c_str()); 
-	
+  ofstream ofile2;
+  ofile2.open((io.outfilename2).c_str());
+  
+  
   /**** ----------- Begin simulation   ----------- ****/
   
   // Begin Time Mean
@@ -108,7 +111,10 @@ int main(int argc, char **argv){
         
 				// Save data.	
 				g_old.writeMacroState(&ofile, io.ttime, io.dt, io.partID_flux);
-				g_old.writeMicroState(&ofile2, io.ttime, io.dt);
+        if(io.printTVR){
+          g_old.writeMicroState(&ofile2, io.ttime, io.dt);
+        }
+				
 			}
 		// -------------- End EVEN	---------------------------
   	}else{
@@ -149,7 +155,9 @@ int main(int argc, char **argv){
         
 				// Save data.	
 				g_new.writeMacroState(&ofile, io.ttime, io.dt, io.partID_flux);
-				g_new.writeMicroState(&ofile2, io.ttime, io.dt);
+        if(io.printTVR){
+          g_new.writeMicroState(&ofile2, io.ttime, io.dt);
+        }
 			}
 			
 		// -------------- End ODD	---------------------------

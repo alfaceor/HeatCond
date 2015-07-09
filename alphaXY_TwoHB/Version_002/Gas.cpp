@@ -309,6 +309,46 @@ void Gas::calculateForceAlpha3(double eps){
 //  cout<<"-----"<<endl;
 }
 
+// TODO: is really necessary use one function??
+void Gas::calculateForceAlphaPotentialEnergy(double eps, bool bEnerg){
+  double sinthetaij=0.0;
+  double f_ij = 0.0;
+  // Initiate all forces to zero.
+  for (int i=0; i<N; i++){
+    force[i] = 0.0;
+  }
+  
+  if (bEnerg) {
+    // Calculate Potential energy
+    double auxEp = 0.0;
+    double costhetaij = 0.0;
+    Ep = 0.0;
+    for (int i=0; i<N; i++){
+      for (int j=i+1; j<N; j++){
+          sinthetaij = vec_m[indx(i,1)]*vec_m[indx(j,0)] - vec_m[indx(i,0)]*vec_m[indx(j,1)];
+          costhetaij = vec_m[indx(i,0)]*vec_m[indx(j,0)] + vec_m[indx(i,1)]*vec_m[indx(j,1)] ;
+          f_ij = -0.5*eps*(invNtildeI[i]+ invNtildeI[j])*sinthetaij*inv_ijalpha[abs(i-j)];
+          force[i] +=  f_ij;
+          force[j] += -f_ij;
+          auxEp += (1.0 - costhetaij)*inv_ijalpha[abs(i-j)];
+      }
+      Ep += invNtildeI[i]*auxEp;
+    }
+    Ep = eps*Ep;
+  }else {
+    // Potential energy is not calculated
+    for (int i=0; i<N; i++){
+      for (int j=i+1; j<N; j++){
+          sinthetaij = vec_m[indx(i,1)]*vec_m[indx(j,0)] - vec_m[indx(i,0)]*vec_m[indx(j,1)];
+          f_ij = -0.5*eps*(invNtildeI[i]+ invNtildeI[j])*sinthetaij*inv_ijalpha[abs(i-j)];
+          force[i] +=  f_ij;
+          force[j] += -f_ij;
+      }
+    }
+  }
+}
+
+
 
 // Heat reservatories
 void Gas::addHeatBathTo(int partID, double Temp, double dt, double gamma, gsl_rng *r){

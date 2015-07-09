@@ -60,6 +60,7 @@ class Gas{
     void calculateForceAlpha(double eps);
     void calculateForceAlpha2(double eps);
     void calculateForceAlpha3(double eps);
+    void calculateForceAlphaPotentialEnergy(double eps, bool bEnerg);
     
     
     

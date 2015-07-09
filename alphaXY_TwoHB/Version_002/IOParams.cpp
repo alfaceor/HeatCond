@@ -58,6 +58,9 @@ IOParams::IOParams(int argc, char **argv){
     ("partID_flux,i", 
          po::value< int >(&partID_flux)->default_value(3), 
          "The id of the particle to get the flux.")
+    ("printTVR", 
+         po::value< int >(&printTVR)->default_value(0), 
+         "save trajectories in .tvr file 0=false(don't print), 1=true (print).")
       ;
         
   
@@ -123,6 +126,7 @@ IOParams::IOParams(int argc, char **argv){
     alpha=atof(vm["alpha"].as< string >().c_str());
     cout << alpha <<endl;
   }
+  
   
 //  basename="N_"+strN+"__U0_"+strU0+"__T1_"+strT1+"__T2_"+strT2+"__id_"+strJob_id;
   

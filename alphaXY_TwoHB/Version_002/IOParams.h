@@ -25,6 +25,7 @@ class IOParams{
     int job_id;
     double alpha;
     int partID_flux;
+    int printTVR; // must be a bool type, 0 don't save
     
     //var to name the file
     string strN;
