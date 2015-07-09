@@ -59,6 +59,7 @@ class Gas{
     void calculateForceFNB(double eps);
     void calculateForceAlpha(double eps);
     void calculateForceAlpha2(double eps);
+    void calculateForceAlpha3(double eps);
     
     
     

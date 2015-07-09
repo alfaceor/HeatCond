@@ -27,11 +27,11 @@ Gas::Gas(int const N, double alpha){
   this->invNtildeI = new double[N];
   this->calculateInvNtildeI();
   // cout<<"Ntilde = "<< this->Ntilde<<endl; 
-  cout<<"____ BEGIN invNtildeI ____"<<endl;
-  for (int i=0; i<N; i++){
-    cout<< i<< " " <<invNtildeI[i] <<endl;
-  }
-  cout<<"____ END invNtildeI ____"<<endl;
+//  cout<<"____ BEGIN invNtildeI ____"<<endl;
+//  for (int i=0; i<N; i++){
+//    cout<< i<< " " <<invNtildeI[i] <<endl;
+//  }
+//  cout<<"____ END invNtildeI ____"<<endl;
   
 };
 
@@ -93,7 +93,7 @@ void Gas::calculateNtilde(){  // depend of on the value of \alpha
 // FIXME: Doesn't depend of part_id
 void Gas::calculateInvNtildeI(){  // depend of on the value of \alpha
 //  calculateInvIJalpha();
-  cout << "/////////////" << endl;
+//  cout << "/////////////" << endl;
   double auxNtildeI = 0.0;
   int delta_ij= 0;
   for (int i=0; i<N ; i++){
@@ -103,20 +103,20 @@ void Gas::calculateInvNtildeI(){  // depend of on the value of \alpha
         delta_ij = abs(i-j);
         // This is not the inverse of NtildeI
         auxNtildeI += inv_ijalpha[delta_ij]; 
-        cout<< "( "<< delta_ij << " )" << inv_ijalpha[delta_ij] << " + "; 
+//        cout<< "( "<< delta_ij << " )" << inv_ijalpha[delta_ij] << " + "; 
       }
     // Now we invert the value to get the inverse
     invNtildeI[i] = 1.0/auxNtildeI;
     }
-    cout << endl;
-    cout << "invNtildeI[i] = "<< invNtildeI[i] <<endl;
+//    cout << endl;
+//    cout << "invNtildeI[i] = "<< invNtildeI[i] <<endl;
   }
-  cout << "/////////////" << endl;
+//  cout << "/////////////" << endl;
   
 }  
 
 void Gas::calculateInvIJalpha(){  // r_{i,j}^\alpha = |i-j|^\alpha
-  cout<<" inv_ijalpha[delta_ij] "<<endl;
+//  cout<<" inv_ijalpha[delta_ij] "<<endl;
   this->inv_ijalpha[0] = 0.0;
   cout<<inv_ijalpha[0]<<endl;
   for (int delta_ij=1; delta_ij<N; delta_ij++){
@@ -124,7 +124,7 @@ void Gas::calculateInvIJalpha(){  // r_{i,j}^\alpha = |i-j|^\alpha
     cout<<inv_ijalpha[delta_ij]<<" ";
   }
   cout<<endl;
-  cout<<"***************"<<endl;
+//  cout<<"***************"<<endl;
 }
 
 
@@ -282,6 +282,28 @@ void Gas::calculateForceAlpha2(double eps){
     }
     
     force[i] = eps*force[i];
+//    cout<<"force["<<i<<"]="<<force[i]<<endl;
+  }
+//  cout<<"-----"<<endl;
+}
+
+//Function to calculate most efficiently the forces.
+void Gas::calculateForceAlpha3(double eps){
+  double sinthetaij=0.0;
+  double f_ij = 0.0;
+  // Initiate all forces to zero.
+  for (int i=0; i<N; i++){
+    force[i] = 0.0;
+  }
+  for (int i=0; i<N; i++){
+//    force[i] = 0.0;
+    for (int j=i+1; j<N; j++){
+//        sinthetaij = sin(theta[i]-theta[j]); 
+        sinthetaij = vec_m[indx(i,1)]*vec_m[indx(j,0)] - vec_m[indx(i,0)]*vec_m[indx(j,1)];
+        f_ij = -0.5*eps*(invNtildeI[i]+ invNtildeI[j])*sinthetaij*inv_ijalpha[abs(i-j)];
+        force[i] +=  f_ij;
+        force[j] += -f_ij;
+    }
 //    cout<<"force["<<i<<"]="<<force[i]<<endl;
   }
 //  cout<<"-----"<<endl;

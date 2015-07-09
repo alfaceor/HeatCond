@@ -64,7 +64,7 @@ int main(int argc, char **argv){
 	// 1. Calculate ___force_old___.
 	g_old.calculateVec_m();	  			//--  1.1 Calculate m_old.
 	g_old.calculateVec_M();					//--  1.2 Calculate M_old.  
-	g_old.calculateForceAlpha2(io.eps);		//--  1.3 Calculate force_old with M_old
+	g_old.calculateForceAlpha3(io.eps);		//--  1.3 Calculate force_old with M_old
 
   
 //  for (int i=0; i<io.N; i++)
@@ -85,7 +85,7 @@ int main(int argc, char **argv){
 			// 3. Calculate ___force_new___
 			g_new.calculateVec_m();					//--  3.1 Calculate m_new
 			g_new.calculateVec_M();					//--  3.2 Calculate M_new
-			g_new.calculateForceAlpha2(io.eps);		//--  3.3 Calculate force_new with M_new
+			g_new.calculateForceAlpha3(io.eps);		//--  3.3 Calculate force_new with M_new
 				
 			// 4. Calculate ___omega_new___
 			g_new.updateVeloc(&g_old, io.dt, &hb01, &hb02);
@@ -125,7 +125,8 @@ int main(int argc, char **argv){
 			// 3. Calculate ___force_new___
 			g_old.calculateVec_m();					//--  3.1 Calculate m_new
 			g_old.calculateVec_M();					//--  3.2 Calculate M_new
-			g_old.calculateForceAlpha2(io.eps);		//--  3.3 Calculate force_new with M_new
+			g_old.calculateForceAlpha3(io.eps);		//--  3.3 Calculate force_new with M_new
+      
 //			g_old.calculateForce(io.eps);		//--  3.3 Calculate force_new with M_new
 				
 			// 4. Calculate ___omega_new___
@@ -170,6 +171,8 @@ int main(int argc, char **argv){
     // Temperature profile over time
     ofile4<<i<<" "<<2.0*MeanTimeEk_n[i]<<endl;
   }
+  
+
   
 	g_new.writeMicroState(&ofile3, io.ttime, io.dt);  
   ofile3.close();
