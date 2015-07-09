@@ -1,5 +1,6 @@
 #!/usr/bin/python
-# Script to get the time average for Temperature, Magnetization, Flux for each trials (realization, job)
+# Script to get the time average for Temperature, Magnetization, Flux
+# for each trials (realization, job) over the simulation time
 
 import numpy as np
 
@@ -67,7 +68,8 @@ for i in range(Mfiles):
   Flux  = data[:,5]
   del data
   
-  T = 2*Ek[transient:]/Ntilde
+  T = 2*Ek[transient:]/Npart
+  U0 = ((Ek[transient:] + Ep[transient:])/Npart).mean()
   M = np.sqrt(Mx**2 + My**2)[transient:]
   
   T_mean = T.mean()
@@ -79,7 +81,7 @@ for i in range(Mfiles):
   J_mean = Flux.mean()
   J_var  = Flux.var()
   
-  thermo[i] = np.array([Npart, U0*Npart/Ntilde, alpha, T_mean, T_var, M_mean, M_var, J_mean, J_var])
+  thermo[i] = np.array([Npart, U0, alpha, T_mean, T_var, M_mean, M_var, J_mean, J_var])
 
 np.savetxt(outputFilename, thermo)
 thermoMean = thermo.mean(axis=0)
