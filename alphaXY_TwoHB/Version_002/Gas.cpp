@@ -1,8 +1,10 @@
 #include "Gas.h"
 
-int indx(int i, int j){
-  return (i*DIM+j);
-};
+#define indx(i,j) (((i)*DIM)+j)
+
+//int indx(int i, int j){
+//  return (i*DIM+j);
+//};
 
 Gas::Gas(int const N, double alpha){
 	this->N = N;
