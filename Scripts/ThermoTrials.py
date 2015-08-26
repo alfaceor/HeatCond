@@ -73,15 +73,15 @@ for i in range(Mfiles):
   M = np.sqrt(Mx**2 + My**2)[transient:]
   
   T_mean = T.mean()
-  T_var  = T.var()
+  T_std  = T.std()
   
   M_mean = M.mean()
-  M_var  = M.var()
+  M_std  = M.std()
   
   J_mean = Flux.mean()
-  J_var  = Flux.var()
+  J_std  = Flux.std()
   
-  thermo[i] = np.array([Npart, U0, alpha, T_mean, T_var, M_mean, M_var, J_mean, J_var])
+  thermo[i] = np.array([Npart, U0, alpha, T_mean, T_std, M_mean, M_std, J_mean, J_std])
 
 np.savetxt(outputFilename, thermo)
 thermoMean = thermo.mean(axis=0)
