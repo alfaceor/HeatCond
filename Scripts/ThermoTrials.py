@@ -84,7 +84,14 @@ for i in range(Mfiles):
   thermo[i] = np.array([Npart, U0, alpha, T_mean, T_std, M_mean, M_std, J_mean, J_std])
 
 np.savetxt(outputFilename, thermo)
+
+# TODO: Change the values of T_var, M_var, J_var
 thermoMean = thermo.mean(axis=0)
 
+thermoMean[4]=thermo[:,3].std()
+thermoMean[6]=thermo[:,5].std()
+thermoMean[8]=thermo[:,7].std()
+
 print  ' '.join(map(str, thermoMean))
+
 
