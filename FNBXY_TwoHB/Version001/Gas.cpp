@@ -457,12 +457,14 @@ void Gas::calculateVec_fluxFNB(double eps, int i){
   vec_flux[i] = 0.0;
   double sinthetaij = 0.0;
   double f_ij =0.0;
-  for (int j=0; j<i; j++){
+  int j=i-1;
+  if (i<=1) cout<< "Houston we have a problem!" <<endl;
+//  for (int j=0; j<i; j++){
       sinthetaij = vec_m[indx(i,1)]*vec_m[indx(j,0)] - vec_m[indx(i,0)]*vec_m[indx(j,1)];
-      f_ij = -0.5*eps*(invNtildeI[i]+ invNtildeI[j])*sinthetaij*inv_ijalpha[abs(i-j)];
+      f_ij = -0.5*eps*sinthetaij;
       vec_flux[i] += 0.5*f_ij*(omega[i] + omega[j]);
 //      vec_flux[i] = 0.5*(omega[i]+omega[j])*f_ij;
-  }
+//  }
 }
 
 
