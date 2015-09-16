@@ -29,6 +29,7 @@ int main(int argc, char **argv){
   Gas g_old(io.N, io.alpha);
   Gas g_new(io.N, io.alpha);
   
+  cout<<"io.alpha="<<io.alpha<<endl;
   // Initiate angles and velocities.
 	if( !g_old.initCondFromFile(io.inifilename) ){
     cout<<io.inifilename<<" is missing!"<<endl;
@@ -102,7 +103,7 @@ int main(int argc, char **argv){
 				g_old.calculateEkin();
 				g_old.calculateEpotFNB(io.eps);
 //				g_old.calculateEpot(io.eps);
-        g_old.calculateVec_flux2(io.eps, io.partID_flux);
+        g_old.calculateVec_fluxFNB(io.eps, io.partID_flux);
 //        g_old.calculateFlux();
 
         // Calculate kinetic energy mean
@@ -146,7 +147,7 @@ int main(int argc, char **argv){
 				g_new.calculateEkin();
 				g_new.calculateEpotFNB(io.eps);
 //				g_new.calculateEpot(io.eps);
-        g_new.calculateVec_flux(io.eps, io.partID_flux);
+        g_new.calculateVec_fluxFNB(io.eps, io.partID_flux);
 //        g_new.calculateFlux();
         
         // Calculate kinetic energy mean
@@ -182,7 +183,8 @@ int main(int argc, char **argv){
   }
   
 
-  
+  cout << g_new.vec_flux[io.partID_flux]<<endl;
+  cout << g_old.vec_flux[io.partID_flux]<<endl;
 	g_new.writeMicroState(&ofile3, io.ttime, io.dt);  
   ofile3.close();
   ofile4.close();

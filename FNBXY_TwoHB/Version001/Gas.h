@@ -16,7 +16,7 @@
 
 using namespace std;
 
-int indx(int , int );
+//int indx(int , int );
 class Gas{
     public:
         int N;
