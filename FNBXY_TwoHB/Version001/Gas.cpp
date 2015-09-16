@@ -228,16 +228,16 @@ void Gas::calculateForce(double eps){
  */
 void Gas::calculateForceFNB(double eps){
   
-  force[0] = -1.0*eps*( 
+  force[0] = -0.5*eps*( 
               -vec_m[indx(1,1)]*vec_m[indx(0,0)] + vec_m[indx(1,0)]*vec_m[indx(0,1)]
               );
   for (int i=1; i<N-1; i++){
-    force[i] = -1.0*eps*( 
+    force[i] = -0.5*eps*( 
               -vec_m[indx(i+1,1)]*vec_m[indx(i  ,0)] + vec_m[indx(i+1,0)]*vec_m[indx(i  ,1)]
               +vec_m[indx(i  ,1)]*vec_m[indx(i-1,0)] - vec_m[indx(i  ,0)]*vec_m[indx(i-1,1)]
               );
   }
-  force[N-1] = -1.0*eps*( 
+  force[N-1] = -0.5*eps*( 
               +vec_m[indx(N-1,1)]*vec_m[indx(N-2,0)] - vec_m[indx(N-1,0)]*vec_m[indx(N-2,1)]
               );
 }

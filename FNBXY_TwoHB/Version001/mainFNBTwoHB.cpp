@@ -29,6 +29,7 @@ int main(int argc, char **argv){
   Gas g_old(io.N, io.alpha);
   Gas g_new(io.N, io.alpha);
   
+  cout<<"io.alpha="<<io.alpha<<endl;
   // Initiate angles and velocities.
 	if( !g_old.initCondFromFile(io.inifilename) ){
     cout<<io.inifilename<<" is missing!"<<endl;
@@ -182,7 +183,8 @@ int main(int argc, char **argv){
   }
   
 
-  
+  cout << g_new.vec_flux[io.partID_flux]<<endl;
+  cout << g_old.vec_flux[io.partID_flux]<<endl;
 	g_new.writeMicroState(&ofile3, io.ttime, io.dt);  
   ofile3.close();
   ofile4.close();
