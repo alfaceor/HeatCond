@@ -83,7 +83,7 @@ int main(int argc, char **argv){
       hb02.RollTheDice();
       
 			g_new.updateCoord( &g_old, io.dt, io.dt2, &hb01, &hb02);
-			g_new.removeCyclesCoord();
+//			g_new.removeCyclesCoord();
 				 
 			// 3. Calculate ___force_new___
 			g_new.calculateVec_m();					//--  3.1 Calculate m_new
@@ -126,7 +126,7 @@ int main(int argc, char **argv){
       hb01.RollTheDice();
       hb02.RollTheDice();
 			g_old.updateCoord(&g_new, io.dt, io.dt2, &hb01, &hb02);		
-			g_old.removeCyclesCoord();
+//			g_old.removeCyclesCoord();
 				 
 			// 3. Calculate ___force_new___
 			g_old.calculateVec_m();					//--  3.1 Calculate m_new

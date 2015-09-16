@@ -32,7 +32,11 @@ else:
 if options.alpha == None:
   alpha = 0.50
 else:
-  alpha = float(options.alpha)
+  if options.alpha == "INFT":
+    # do nothing
+    alpha = 100
+  else:
+    alpha = float(options.alpha)
   
 if options.transient == None:
   transient = 200
@@ -50,7 +54,7 @@ def CalcNtilde(Npart, alpha):
     Ntilde += i**(-alpha)
   return Ntilde
 
-Ntilde = CalcNtilde(Npart, alpha)
+#Ntilde = CalcNtilde(Npart, alpha)
 
 filename = args
 Mfiles = len(filename)

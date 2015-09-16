@@ -102,7 +102,7 @@ int main(int argc, char **argv){
 				g_old.calculateEkin();
 				g_old.calculateEpotFNB(io.eps);
 //				g_old.calculateEpot(io.eps);
-        g_old.calculateVec_flux2(io.eps, io.partID_flux);
+        g_old.calculateVec_fluxFNB(io.eps, io.partID_flux);
 //        g_old.calculateFlux();
 
         // Calculate kinetic energy mean
@@ -146,7 +146,7 @@ int main(int argc, char **argv){
 				g_new.calculateEkin();
 				g_new.calculateEpotFNB(io.eps);
 //				g_new.calculateEpot(io.eps);
-        g_new.calculateVec_flux(io.eps, io.partID_flux);
+        g_new.calculateVec_fluxFNB(io.eps, io.partID_flux);
 //        g_new.calculateFlux();
         
         // Calculate kinetic energy mean

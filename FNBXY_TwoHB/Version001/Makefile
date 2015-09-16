@@ -12,7 +12,7 @@ LIBS= -lgsl -lgslcblas -lm -lboost_program_options
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CXX) -g -o $(TARGET) $(OBJS) $(LIBS)
+	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
 
 clean:
 	rm -f $(OBJS) $(TARGET)
